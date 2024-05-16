@@ -1,6 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { DEVELOPMENT } from '../constants';
-import databaseConfig from './database.config';
+import * as databaseConfig from './database.config';
 
 export const databaseProviders = {
   inject: [ConfigService],
