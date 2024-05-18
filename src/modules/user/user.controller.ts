@@ -32,11 +32,13 @@ export class UserController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    // TO-DO: Validate if user exists
     return this.userService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
+    // TO-DO: Validate if user exists
     return this.userService.remove(+id);
   }
 }

@@ -10,11 +10,12 @@ import {
   Unique,
   AutoIncrement,
   BelongsTo,
+  Default,
 } from 'sequelize-typescript';
-import { cpfRegex, rgRegex } from 'src/common/utilities/regex';
+import { CPF_REGEX, RG_REGEX } from 'src/common/constants/regex';
 
-import { USER_ZODIAC_SIGN } from 'src/modules/user/enums/userZodiacSign.enum';
-import { USER_GENDER } from '../enums/userGender.enum';
+import { USER_ZODIAC_SIGN } from 'src/modules/user/enums/user-zodiac-sign.enum';
+import { USER_GENDER } from '../enums/user-gender.enum';
 
 import { Address } from './address.entity';
 import { Contact } from './contact.entity';
@@ -42,20 +43,20 @@ export class User extends Model<User> {
   age: number;
 
   @AllowNull(false)
-  @Validate({ is: cpfRegex })
+  @Validate({ is: CPF_REGEX })
   @Unique
   @Column
   cpf: string;
 
   @AllowNull(false)
-  @Validate({ is: rgRegex })
+  @Validate({ is: RG_REGEX })
   @Unique
   @Column
   rg: string;
 
   @AllowNull(false)
   @Column
-  birthdate: Date;
+  birthdate: string;
 
   @AllowNull(false)
   @Column({ type: DataType.ENUM(...Object.values(USER_GENDER)) })
@@ -83,7 +84,8 @@ export class User extends Model<User> {
 
   @ForeignKey(() => Address)
   @AllowNull(true)
-  @Column({ type: DataType.INTEGER, defaultValue: null })
+  @Default(null)
+  @Column({ type: DataType.INTEGER })
   addressId: number;
 
   @BelongsTo(() => Address, 'addressId')
@@ -91,7 +93,8 @@ export class User extends Model<User> {
 
   @ForeignKey(() => Contact)
   @AllowNull(true)
-  @Column({ type: DataType.INTEGER, defaultValue: null })
+  @Default(null)
+  @Column({ type: DataType.INTEGER })
   contactId: number;
 
   @BelongsTo(() => Contact, 'contactId')
@@ -99,7 +102,8 @@ export class User extends Model<User> {
 
   @ForeignKey(() => Physical)
   @AllowNull(true)
-  @Column({ type: DataType.INTEGER, defaultValue: null })
+  @Default(null)
+  @Column({ type: DataType.INTEGER })
   physicalId: number;
 
   @BelongsTo(() => Physical, 'physicalId')

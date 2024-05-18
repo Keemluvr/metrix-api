@@ -9,7 +9,7 @@ import {
   DataType,
 } from 'sequelize-typescript';
 import { User } from './user.entity';
-import { USER_BLOOD_TYPE } from '../enums/userBloodType.enum';
+import { USER_BLOOD_TYPE } from '../enums/user-blood-type.enum';
 
 @Table({
   tableName: 'physicals',

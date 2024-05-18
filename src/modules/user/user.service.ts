@@ -17,7 +17,7 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = await this.userModel.create(createUserDto, {
+    const user = await this.userModel.create(createUserDto as User, {
       validate: true,
       include: [
         User.associations.address,
@@ -30,7 +30,7 @@ export class UserService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<[number]> {
-    return this.userModel.update(updateUserDto, { where: { id } });
+    return this.userModel.update(updateUserDto as User, { where: { id } });
   }
 
   async remove(id: number): Promise<void> {
