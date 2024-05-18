@@ -10,8 +10,7 @@ module.exports = {
         model: 'addresses',
         key: 'id',
       },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
+      onDelete: 'SET NULL',
     });
   },
 
