@@ -15,6 +15,7 @@ import { USER_ZODIAC_SIGN } from 'src/modules/user/enums/userZodiacSign.enum';
 import { USER_GENDER } from '../enums/userGender.enum';
 import { cpfRegex, rgRegex } from 'src/common/utilities/regex';
 import { Address } from './address.entity';
+import { Contact } from './contact.entity';
 
 @Table({
   tableName: 'users',
@@ -89,4 +90,12 @@ export class User extends Model<User> {
 
   @BelongsTo(() => Address, 'addressId')
   address: Address;
+
+  @ForeignKey(() => Contact)
+  @AllowNull(true)
+  @Column({ type: DataType.INTEGER, field: 'contact_id', defaultValue: null })
+  contactId: number;
+
+  @BelongsTo(() => Contact, 'contactId')
+  contact: Contact;
 }
