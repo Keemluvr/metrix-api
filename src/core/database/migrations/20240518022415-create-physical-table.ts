@@ -1,5 +1,5 @@
 import { QueryInterface } from 'sequelize';
-import { USER_BLOOD_TYPE } from 'src/modules/user/enums/userBloodType.enum';
+import { USER_BLOOD_TYPE } from 'src/modules/user/enums/user-blood-type.enum';
 
 /** @type {import("sequelize-cli").Migration} */
 module.exports = {

@@ -1,6 +1,6 @@
 import { QueryInterface } from 'sequelize';
-import { USER_GENDER } from 'src/modules/user/enums/userGender.enum';
-import { USER_ZODIAC_SIGN } from 'src/modules/user/enums/userZodiacSign.enum';
+import { USER_GENDER } from 'src/modules/user/enums/user-gender.enum';
+import { USER_ZODIAC_SIGN } from 'src/modules/user/enums/user-zodiac-sign.enum';
 
 /** @type {import("sequelize-cli").Migration} */
 module.exports = {
@@ -21,12 +21,12 @@ module.exports = {
         allowNull: false,
       },
       cpf: {
-        type: Sequelize.VARCHAR(11),
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
       rg: {
-        type: Sequelize.VARCHAR(9),
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
