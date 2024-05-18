@@ -18,7 +18,12 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const user = await this.userModel.create(createUserDto, {
-      include: [User.associations.address, User.associations.contact],
+      validate: true,
+      include: [
+        User.associations.address,
+        User.associations.contact,
+        User.associations.physical,
+      ],
     });
 
     return user;

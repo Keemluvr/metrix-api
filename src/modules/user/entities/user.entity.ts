@@ -11,11 +11,14 @@ import {
   AutoIncrement,
   BelongsTo,
 } from 'sequelize-typescript';
+import { cpfRegex, rgRegex } from 'src/common/utilities/regex';
+
 import { USER_ZODIAC_SIGN } from 'src/modules/user/enums/userZodiacSign.enum';
 import { USER_GENDER } from '../enums/userGender.enum';
-import { cpfRegex, rgRegex } from 'src/common/utilities/regex';
+
 import { Address } from './address.entity';
 import { Contact } from './contact.entity';
+import { Physical } from './physical.entity';
 
 @Table({
   tableName: 'users',
@@ -55,16 +58,11 @@ export class User extends Model<User> {
   birthdate: Date;
 
   @AllowNull(false)
-  @Column({
-    type: DataType.ENUM(...Object.values(USER_GENDER)),
-  })
+  @Column({ type: DataType.ENUM(...Object.values(USER_GENDER)) })
   gender: string;
 
   @AllowNull(false)
-  @Column({
-    type: DataType.ENUM(...Object.values(USER_ZODIAC_SIGN)),
-    field: 'zodiac_sign',
-  })
+  @Column({ type: DataType.ENUM(...Object.values(USER_ZODIAC_SIGN)) })
   zodiacSign: string;
 
   @Unique
@@ -74,7 +72,7 @@ export class User extends Model<User> {
   email: string;
 
   @AllowNull(false)
-  @Column({ field: 'mother_name' })
+  @Column
   motherName: string;
 
   @AllowNull(false)
@@ -85,7 +83,7 @@ export class User extends Model<User> {
 
   @ForeignKey(() => Address)
   @AllowNull(true)
-  @Column({ type: DataType.INTEGER, field: 'address_id', defaultValue: null })
+  @Column({ type: DataType.INTEGER, defaultValue: null })
   addressId: number;
 
   @BelongsTo(() => Address, 'addressId')
@@ -93,9 +91,17 @@ export class User extends Model<User> {
 
   @ForeignKey(() => Contact)
   @AllowNull(true)
-  @Column({ type: DataType.INTEGER, field: 'contact_id', defaultValue: null })
+  @Column({ type: DataType.INTEGER, defaultValue: null })
   contactId: number;
 
   @BelongsTo(() => Contact, 'contactId')
   contact: Contact;
+
+  @ForeignKey(() => Physical)
+  @AllowNull(true)
+  @Column({ type: DataType.INTEGER, defaultValue: null })
+  physicalId: number;
+
+  @BelongsTo(() => Physical, 'physicalId')
+  physical: Physical;
 }
