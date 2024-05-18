@@ -1,8 +1,10 @@
-'use strict';
+import { QueryInterface } from 'sequelize';
+import { USER_GENDER } from 'src/modules/user/enums/userGender.enum';
+import { USER_ZODIAC_SIGN } from 'src/modules/user/enums/userZodiacSign.enum';
 
-/** @type {import('sequelize-cli').Migration} */
+/** @type {import("sequelize-cli").Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up: async (queryInterface: QueryInterface, Sequelize): Promise<void> => {
     await queryInterface.createTable('users', {
       id: {
         allowNull: false,
@@ -19,12 +21,12 @@ module.exports = {
         allowNull: false,
       },
       cpf: {
-        type: Sequelize.STRING,
+        type: Sequelize.VARCHAR(11),
         allowNull: false,
         unique: true,
       },
       rg: {
-        type: Sequelize.STRING,
+        type: Sequelize.VARCHAR(9),
         allowNull: false,
         unique: true,
       },
@@ -33,24 +35,11 @@ module.exports = {
         allowNull: false,
       },
       gender: {
-        type: Sequelize.ENUM(['Masculino', 'Feminino']),
+        type: Sequelize.ENUM(...Object.values(USER_GENDER)),
         allowNull: false,
       },
       zodiac_sign: {
-        type: Sequelize.ENUM([
-          'Áries',
-          'Touro',
-          'Gêmeos',
-          'Câncer',
-          'Leão',
-          'Virgem',
-          'Libra',
-          'Escorpião',
-          'Sagitário',
-          'Capricórnio',
-          'Aquário',
-          'Peixes',
-        ]),
+        type: Sequelize.ENUM(...Object.values(USER_ZODIAC_SIGN)),
         allowNull: false,
       },
       email: {
@@ -79,8 +68,7 @@ module.exports = {
       },
     });
   },
-
-  async down(queryInterface) {
-    await queryInterface.dropTable('user');
+  down: async (queryInterface: QueryInterface): Promise<void> => {
+    await queryInterface.dropTable('users');
   },
 };

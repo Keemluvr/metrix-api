@@ -1,8 +1,8 @@
-'use strict';
+import { QueryInterface } from 'sequelize';
 
-/** @type {import('sequelize-cli').Migration} */
+/** @type {import("sequelize-cli").Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up: async (queryInterface: QueryInterface, Sequelize): Promise<void> => {
     await queryInterface.addColumn('users', 'physical_id', {
       type: Sequelize.INTEGER,
       allowNull: true,
@@ -13,8 +13,7 @@ module.exports = {
       onDelete: 'SET NULL',
     });
   },
-
-  async down(queryInterface) {
+  down: async (queryInterface: QueryInterface): Promise<void> => {
     await queryInterface.removeColumn('users', 'physical_id');
   },
 };

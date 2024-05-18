@@ -1,8 +1,9 @@
-'use strict';
+import { QueryInterface } from 'sequelize';
+import { USER_BLOOD_TYPE } from 'src/modules/user/enums/userBloodType.enum';
 
-/** @type {import('sequelize-cli').Migration} */
+/** @type {import("sequelize-cli").Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up: async (queryInterface: QueryInterface, Sequelize): Promise<void> => {
     await queryInterface.createTable('physicals', {
       id: {
         allowNull: false,
@@ -19,22 +20,12 @@ module.exports = {
         allowNull: false,
       },
       blood_type: {
-        type: Sequelize.ENUM([
-          'A+',
-          'A-',
-          'B+',
-          'B-',
-          'O+',
-          'O-',
-          'AB+',
-          'AB-',
-        ]),
+        type: Sequelize.ENUM(...Object.values(USER_BLOOD_TYPE)),
         allowNull: false,
       },
     });
   },
-
-  async down(queryInterface) {
+  down: async (queryInterface: QueryInterface): Promise<void> => {
     await queryInterface.dropTable('physicals');
   },
 };
