@@ -1,10 +1,14 @@
-module.exports = {
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const configDB = {
   development: {
     dialect: 'sqlite',
-    storage: 'src/core/database/database.sqlite',
     autoLoadModels: true,
     synchronize: true,
-    models: [__dirname + '/src/modules/**/entities/*.entity.ts'],
+    logging: true,
+    storage: 'src/core/database/database.sqlite',
   },
   production: {
     dialect: process.env.DB_DIALECT,
@@ -14,3 +18,7 @@ module.exports = {
     host: process.env.DB_HOST,
   },
 };
+
+export default configDB;
+
+module.exports = configDB;
