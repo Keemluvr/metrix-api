@@ -1,3 +1,5 @@
+import { Address } from '../entities/address.entity';
+
 export class CreateUserDto {
   name: string;
   age: number;
@@ -9,4 +11,5 @@ export class CreateUserDto {
   email: string;
   motherName: string;
   fatherName: string;
+  address?: Address;
 }

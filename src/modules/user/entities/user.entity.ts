@@ -1,82 +1,92 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  PrimaryKey,
+  ForeignKey,
+  AllowNull,
+  Validate,
+  Unique,
+  AutoIncrement,
+  BelongsTo,
+} from 'sequelize-typescript';
 import { USER_ZODIAC_SIGN } from 'src/modules/user/enums/userZodiacSign.enum';
 import { USER_GENDER } from '../enums/userGender.enum';
 import { cpfRegex, rgRegex } from 'src/common/utilities/regex';
+import { Address } from './address.entity';
 
-@Table({ tableName: 'user', timestamps: true })
+@Table({
+  tableName: 'users',
+  name: { singular: 'user', plural: 'users' },
+  timestamps: true,
+  underscored: true,
+})
 export class User extends Model<User> {
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
+  @PrimaryKey
+  @ForeignKey(() => Address)
+  @AutoIncrement
+  @Column
+  id: number;
+
+  @AllowNull(false)
+  @Column
   name: string;
 
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
+  @AllowNull(false)
+  @Column
   age: number;
 
-  @Column({
-    type: DataType.STRING,
-    unique: true,
-    allowNull: false,
-    validate: {
-      is: cpfRegex,
-    },
-  })
+  @AllowNull(false)
+  @Validate({ is: cpfRegex })
+  @Unique
+  @Column
   cpf: string;
 
-  @Column({
-    type: DataType.STRING,
-    unique: true,
-    allowNull: false,
-    validate: {
-      is: rgRegex,
-    },
-  })
+  @AllowNull(false)
+  @Validate({ is: rgRegex })
+  @Unique
+  @Column
   rg: string;
 
-  @Column({
-    type: DataType.DATE,
-    allowNull: false,
-  })
+  @AllowNull(false)
+  @Column
   birthdate: Date;
 
+  @AllowNull(false)
   @Column({
     type: DataType.ENUM(...Object.values(USER_GENDER)),
-    allowNull: false,
   })
   gender: string;
 
+  @AllowNull(false)
   @Column({
     type: DataType.ENUM(...Object.values(USER_ZODIAC_SIGN)),
-    allowNull: false,
     field: 'zodiac_sign',
   })
   zodiacSign: string;
 
-  @Column({
-    type: DataType.STRING,
-    unique: true,
-    allowNull: false,
-    validate: {
-      isEmail: true,
-    },
-  })
+  @Unique
+  @AllowNull(false)
+  @Validate({ isEmail: true })
+  @Column
   email: string;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-    field: 'mother_name',
-  })
+  @AllowNull(false)
+  @Column({ field: 'mother_name' })
   motherName: string;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-    field: 'father_name',
-  })
+  @AllowNull(false)
+  @Column
   fatherName: string;
+
+  // Relations
+
+  @ForeignKey(() => Address)
+  @AllowNull(true)
+  @Column({ type: DataType.INTEGER, field: 'address_id', defaultValue: null })
+  addressId: number;
+
+  @BelongsTo(() => Address, 'addressId')
+  address: Address;
 }

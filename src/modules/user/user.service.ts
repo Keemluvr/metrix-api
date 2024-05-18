@@ -16,8 +16,12 @@ export class UserService {
     return this.userModel.findByPk(id);
   }
 
-  async create(user: CreateUserDto): Promise<User> {
-    return this.userModel.create(user);
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const user = await this.userModel.create(createUserDto, {
+      include: [User.associations.address],
+    });
+
+    return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<[number]> {
