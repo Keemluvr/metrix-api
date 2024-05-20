@@ -3,34 +3,39 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { InjectModel } from '@nestjs/sequelize';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { SignUpDTO } from '../auth/dto/sign-up.dto';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User) private userModel: typeof User) {}
+  constructor(@InjectModel(User) private userRepository: typeof User) {}
 
   async findAll(): Promise<User[]> {
-    return this.userModel.findAll();
+    return this.userRepository.findAll();
   }
 
   async findOne(id: number): Promise<User> {
-    return this.userModel.findByPk(id);
+    return this.userRepository.findByPk(id);
+  }
+
+  async getByEmail(email: string): Promise<User> {
+    return this.userRepository
+      .scope('withPassword')
+      .findOne({ where: { email } });
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = await this.userModel.create(createUserDto as User, {
+    return this.userRepository.create(createUserDto as User, {
       validate: true,
-      include: [
-        User.associations.address,
-        User.associations.contact,
-        User.associations.physical,
-      ],
+      include: [User.associations.address, User.associations.physical],
     });
+  }
 
-    return user;
+  async createDefault(createUserDto: SignUpDTO): Promise<User> {
+    return this.userRepository.create(createUserDto as User);
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<[number]> {
-    return this.userModel.update(updateUserDto as User, { where: { id } });
+    return this.userRepository.update(updateUserDto as User, { where: { id } });
   }
 
   async remove(id: number): Promise<void> {

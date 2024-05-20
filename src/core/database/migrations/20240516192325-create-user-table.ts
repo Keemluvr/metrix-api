@@ -14,57 +14,69 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       age: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       cpf: {
         type: Sequelize.STRING,
-        allowNull: false,
         unique: true,
+        allowNull: true,
       },
       rg: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: true,
       },
       birthdate: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
       },
       gender: {
         type: Sequelize.ENUM(...Object.values(USER_GENDER)),
-        allowNull: false,
+        allowNull: true,
       },
       zodiac_sign: {
         type: Sequelize.ENUM(...Object.values(USER_ZODIAC_SIGN)),
-        allowNull: false,
+        allowNull: true,
       },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
-        validate: {
-          isEmail: true,
-        },
+        validate: { isEmail: true },
+      },
+      password: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      phone: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      cellphone: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       mother_name: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       father_name: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
     });
   },

@@ -10,6 +10,7 @@ import {
   ValidateNested,
   Length,
   IsISO8601,
+  IsStrongPassword,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { USER_GENDER } from '../enums/user-gender.enum';
@@ -18,9 +19,9 @@ import {
   CPF_REGEX,
   RG_REGEX,
   NON_NUMERIC_REGEX,
+  PHONE_REGEX,
 } from 'src/common/constants/regex';
 import { CreateAddressDTO as Address } from './create-address.dto';
-import { CreateContactDTO as Contact } from './create-contact.dto';
 import { CreatePhysicalDTO as Physical } from './create-physical.dto';
 
 export class CreateUserDto {
@@ -69,6 +70,26 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
+  @Matches(PHONE_REGEX)
+  @Transform(({ value }) => value.replace(NON_NUMERIC_REGEX, ''), {
+    toClassOnly: true,
+  })
+  phone: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @Matches(PHONE_REGEX)
+  @Transform(({ value }) => value.replace(NON_NUMERIC_REGEX, ''), {
+    toClassOnly: true,
+  })
+  cellphone: string;
+
+  @IsNotEmpty()
+  @IsStrongPassword()
+  password: string;
+
+  @IsNotEmpty()
+  @IsString()
   motherName: string;
 
   @IsNotEmpty()
@@ -78,10 +99,6 @@ export class CreateUserDto {
   @IsOptional()
   @ValidateNested()
   address?: Address;
-
-  @IsOptional()
-  @ValidateNested()
-  contact?: Contact;
 
   @IsOptional()
   @ValidateNested()

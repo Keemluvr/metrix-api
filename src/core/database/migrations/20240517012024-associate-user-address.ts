@@ -3,17 +3,17 @@ import { QueryInterface } from 'sequelize';
 /** @type {import("sequelize-cli").Migration} */
 module.exports = {
   up: async (queryInterface: QueryInterface, Sequelize): Promise<void> => {
-    await queryInterface.addColumn('users', 'address_id', {
+    await queryInterface.addColumn('addresses', 'user_id', {
       type: Sequelize.INTEGER,
       allowNull: true,
       references: {
-        model: 'addresses',
+        model: 'users',
         key: 'id',
       },
-      onDelete: 'SET NULL',
+      onDelete: 'CASCADE',
     });
   },
   down: async (queryInterface: QueryInterface): Promise<void> => {
-    await queryInterface.removeColumn('users', 'address_id');
+    await queryInterface.removeColumn('addresses', 'user_id');
   },
 };

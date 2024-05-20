@@ -2,10 +2,12 @@ import {
   Table,
   Column,
   Model,
-  HasOne,
   AutoIncrement,
   PrimaryKey,
   AllowNull,
+  ForeignKey,
+  DataType,
+  BelongsTo,
 } from 'sequelize-typescript';
 import { User } from './user.entity';
 
@@ -46,6 +48,10 @@ export class Address extends Model<Address> {
 
   // Relations
 
-  @HasOne(() => User)
+  @ForeignKey(() => User)
+  @Column({ type: DataType.INTEGER, field: 'user_id' })
+  userId: number;
+
+  @BelongsTo(() => User, 'userId')
   user: User;
 }

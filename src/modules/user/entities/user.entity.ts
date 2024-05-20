@@ -9,18 +9,39 @@ import {
   Validate,
   Unique,
   AutoIncrement,
-  BelongsTo,
   Default,
+  BeforeCreate,
+  BeforeUpdate,
+  Scopes,
+  DefaultScope,
+  AfterSave,
+  AfterCreate,
+  AfterUpdate,
+  AfterUpsert,
+  HasOne,
 } from 'sequelize-typescript';
 import { CPF_REGEX, RG_REGEX } from 'src/common/constants/regex';
+
+import * as bcrypt from 'bcryptjs';
 
 import { USER_ZODIAC_SIGN } from 'src/modules/user/enums/user-zodiac-sign.enum';
 import { USER_GENDER } from '../enums/user-gender.enum';
 
 import { Address } from './address.entity';
-import { Contact } from './contact.entity';
 import { Physical } from './physical.entity';
+import { BCRYPT_SALT } from 'src/common/constants/auth';
 
+@DefaultScope(() => ({
+  attributes: { exclude: ['password'] },
+}))
+@Scopes(() => ({
+  withoutPassword: {
+    attributes: { exclude: ['password'] },
+  },
+  withPassword: {
+    attributes: { include: ['password'] },
+  },
+}))
 @Table({
   tableName: 'users',
   name: { singular: 'user', plural: 'users' },
@@ -34,35 +55,35 @@ export class User extends Model<User> {
   @Column
   id: number;
 
-  @AllowNull(false)
+  @AllowNull(true)
   @Column
   name: string;
 
-  @AllowNull(false)
+  @AllowNull(true)
   @Column
   age: number;
 
-  @AllowNull(false)
+  @AllowNull(true)
   @Validate({ is: CPF_REGEX })
   @Unique
   @Column
   cpf: string;
 
-  @AllowNull(false)
+  @AllowNull(true)
   @Validate({ is: RG_REGEX })
   @Unique
   @Column
   rg: string;
 
-  @AllowNull(false)
+  @AllowNull(true)
   @Column
   birthdate: string;
 
-  @AllowNull(false)
+  @AllowNull(true)
   @Column({ type: DataType.ENUM(...Object.values(USER_GENDER)) })
   gender: string;
 
-  @AllowNull(false)
+  @AllowNull(true)
   @Column({ type: DataType.ENUM(...Object.values(USER_ZODIAC_SIGN)) })
   zodiacSign: string;
 
@@ -74,38 +95,55 @@ export class User extends Model<User> {
 
   @AllowNull(false)
   @Column
+  password!: string;
+
+  @AllowNull(true)
+  @Column
+  phone: string;
+
+  @AllowNull(true)
+  @Column
+  cellphone: string;
+
+  @Default('')
+  @AllowNull(true)
+  @Column
   motherName: string;
 
-  @AllowNull(false)
+  @Default('')
+  @AllowNull(true)
   @Column
   fatherName: string;
 
   // Relations
 
-  @ForeignKey(() => Address)
-  @AllowNull(true)
-  @Default(null)
-  @Column({ type: DataType.INTEGER })
-  addressId: number;
-
-  @BelongsTo(() => Address, 'addressId')
+  @HasOne(() => Address)
   address: Address;
 
-  @ForeignKey(() => Contact)
-  @AllowNull(true)
-  @Default(null)
-  @Column({ type: DataType.INTEGER })
-  contactId: number;
-
-  @BelongsTo(() => Contact, 'contactId')
-  contact: Contact;
-
-  @ForeignKey(() => Physical)
-  @AllowNull(true)
-  @Default(null)
-  @Column({ type: DataType.INTEGER })
-  physicalId: number;
-
-  @BelongsTo(() => Physical, 'physicalId')
+  @HasOne(() => Physical)
   physical: Physical;
+
+  // Hooks
+
+  @BeforeCreate
+  @BeforeUpdate
+  static async hashPassword(instance: User) {
+    if (!instance.password) return;
+    instance.password = await bcrypt.hash(instance.password, BCRYPT_SALT);
+    return instance;
+  }
+
+  @AfterSave
+  @AfterCreate
+  @AfterUpdate
+  @AfterUpsert
+  static removePassword(instance: User) {
+    instance.password = undefined;
+    return instance;
+  }
+
+  async comparePassword(password: string) {
+    const isCompare = await bcrypt.compare(password, this.password);
+    return isCompare;
+  }
 }

@@ -2,11 +2,12 @@ import {
   Table,
   Column,
   Model,
-  HasOne,
   AutoIncrement,
   PrimaryKey,
   AllowNull,
   DataType,
+  ForeignKey,
+  BelongsTo,
 } from 'sequelize-typescript';
 import { User } from './user.entity';
 import { USER_BLOOD_TYPE } from '../enums/user-blood-type.enum';
@@ -37,6 +38,10 @@ export class Physical extends Model<Physical> {
 
   // Relations
 
-  @HasOne(() => User)
+  @ForeignKey(() => User)
+  @Column({ type: DataType.INTEGER, field: 'user_id' })
+  userId: number;
+
+  @BelongsTo(() => User, 'userId')
   user: User;
 }
