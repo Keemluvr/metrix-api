@@ -9,3 +9,5 @@ export const PHONE_REGEX = /^([0-9]{2})?(\s|-)?(9?[0-9]{4})-?([0-9]{4})$/;
 export const NON_NUMERIC_REGEX = /[^0-9]/g;
 
 export const DATE_FORMAT_REGEX = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+
+export const CAMEL_CASE_REGEX = /([a-z])([A-Z])/g;
