@@ -16,10 +16,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      age: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-      },
       cpf: {
         type: Sequelize.STRING,
         unique: true,

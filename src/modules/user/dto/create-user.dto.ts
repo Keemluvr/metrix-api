@@ -1,7 +1,6 @@
 import {
   IsEnum,
   IsNotEmpty,
-  IsNumber,
   IsString,
   IsEmail,
   MaxLength,
@@ -29,10 +28,6 @@ export class CreateUserDto {
   @MaxLength(50)
   @IsNotEmpty()
   name: string;
-
-  @IsNumber()
-  @IsNotEmpty()
-  age: number;
 
   @IsNotEmpty()
   @IsString()

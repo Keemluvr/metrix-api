@@ -19,6 +19,8 @@ import {
   AfterUpdate,
   AfterUpsert,
   HasOne,
+  CreatedAt,
+  UpdatedAt,
 } from 'sequelize-typescript';
 import { CPF_REGEX, RG_REGEX } from 'src/common/constants/regex';
 
@@ -58,10 +60,6 @@ export class User extends Model<User> {
   @AllowNull(true)
   @Column
   name: string;
-
-  @AllowNull(true)
-  @Column
-  age: number;
 
   @AllowNull(true)
   @Validate({ is: CPF_REGEX })
@@ -114,6 +112,12 @@ export class User extends Model<User> {
   @AllowNull(true)
   @Column
   fatherName: string;
+
+  @CreatedAt
+  createdAt: Date;
+
+  @UpdatedAt
+  updatedAt: Date;
 
   // Relations
 

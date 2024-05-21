@@ -10,6 +10,7 @@ import { removeNonNumericCharacters } from 'src/common/helpers/string.helper';
 import { parseDateFromString } from 'src/common/helpers/date.helper';
 import { BCRYPT_SALT } from 'src/common/constants/auth';
 import bcrypt from 'bcryptjs';
+import { USER_GENDER } from 'src/modules/user/enums/user-gender.enum';
 
 /** @type {import("sequelize-cli").Migration} */
 module.exports = {
@@ -24,13 +25,17 @@ module.exports = {
         if (alreadyExistsUser.length > 0)
           return console.error('User already exists in database');
 
+        const gender = {
+          feminino: USER_GENDER.FEMALE,
+          masculino: USER_GENDER.MALE,
+        };
+
         const newUser = {
           name: item.nome,
-          age: item.idade,
           cpf: removeNonNumericCharacters(item.cpf),
           rg: removeNonNumericCharacters(item.rg),
           birthdate: parseDateFromString(item.data_nasc).toISOString(),
-          gender: item.sexo,
+          gender: gender[item.sexo.toLowerCase()],
           zodiacSign: item.signo,
           motherName: item.mae,
           fatherName: item.pai,
@@ -72,8 +77,8 @@ module.exports = {
           'users',
           {
             ...convertToSnakeCase(user),
-            created_at: new Date(),
-            updated_at: new Date(),
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
           },
           {
             transaction,
@@ -102,7 +107,6 @@ module.exports = {
     queryInterface.sequelize.transaction(async (transaction) => {
       await queryInterface.bulkDelete('users', null, { transaction });
       await queryInterface.bulkDelete('addresses', null, { transaction });
-      await queryInterface.bulkDelete('contacts', null, { transaction });
       await queryInterface.bulkDelete('physicals', null, { transaction });
     }),
 };
