@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,9 +16,15 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
       transform: true,
       transformOptions: { enableImplicitConversion: true },
+      exceptionFactory: (errors) => new BadRequestException(errors),
     }),
   );
 
-  await app.listen(3000);
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    credentials: true,
+  });
+
+  await app.listen(8080);
 }
 bootstrap();
