@@ -18,9 +18,12 @@ export class AuthService {
   ) {}
 
   async signin(SignInDTO: SignInDTO) {
-    const user = await this.validateUser(SignInDTO);
+    const user = (await this.validateUser(SignInDTO)).dataValues;
+    const token = await this.generateToken(user);
 
-    return this.generateToken(user);
+    delete user.password;
+
+    return { ...user, ...token };
   }
 
   async signup(signUpDTO: SignUpDTO) {
@@ -28,7 +31,11 @@ export class AuthService {
       signUpDTO.email,
     );
 
-    if (alreadyExistsUser) throw new ConflictException('User already exists');
+    if (alreadyExistsUser)
+      throw new ConflictException({
+        entity: 'account',
+        message: 'field-already-exist',
+      });
 
     const user = await this.userService.create(signUpDTO as User);
 
@@ -39,7 +46,7 @@ export class AuthService {
     const payload = { id: user.id, email: user.email };
 
     return {
-      token: this.jwtService.sign(payload),
+      accessToken: this.jwtService.sign(payload),
     };
   }
 

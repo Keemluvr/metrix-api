@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { InjectModel } from '@nestjs/sequelize';
@@ -14,7 +14,9 @@ export class UserService {
   }
 
   async findOne(id: number): Promise<User> {
-    return this.userRepository.findByPk(id);
+    return this.userRepository.findByPk(id, {
+      include: [User.associations.address, User.associations.physical],
+    });
   }
 
   async getByEmail(email: string): Promise<User> {
@@ -40,6 +42,13 @@ export class UserService {
 
   async remove(id: number): Promise<void> {
     const user = await this.findOne(id);
+
+    if (!user)
+      throw new NotFoundException({
+        entity: 'user',
+        message: 'field-not-found',
+      });
+
     await user.destroy();
   }
 }
