@@ -22,7 +22,7 @@ import {
   CreatedAt,
   UpdatedAt,
 } from 'sequelize-typescript';
-import { CPF_REGEX, RG_REGEX } from 'src/common/constants/regex';
+import { CPF_REGEX } from 'src/common/constants/regex';
 
 import * as bcrypt from 'bcryptjs';
 
@@ -68,7 +68,6 @@ export class User extends Model<User> {
   cpf: string;
 
   @AllowNull(true)
-  @Validate({ is: RG_REGEX })
   @Unique
   @Column
   rg: string;

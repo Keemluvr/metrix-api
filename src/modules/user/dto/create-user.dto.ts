@@ -3,7 +3,6 @@ import {
   IsNotEmpty,
   IsString,
   IsEmail,
-  MaxLength,
   Matches,
   IsOptional,
   ValidateNested,
@@ -16,7 +15,6 @@ import { USER_GENDER } from '../enums/user-gender.enum';
 import { USER_ZODIAC_SIGN } from '../enums/user-zodiac-sign.enum';
 import {
   CPF_REGEX,
-  RG_REGEX,
   NON_NUMERIC_REGEX,
   PHONE_REGEX,
 } from 'src/common/constants/regex';
@@ -25,7 +23,7 @@ import { CreatePhysicalDTO as Physical } from './create-physical.dto';
 
 export class CreateUserDto {
   @IsString()
-  @MaxLength(50)
+  @Length(1, 50)
   @IsNotEmpty()
   name: string;
 
@@ -40,8 +38,6 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @Matches(RG_REGEX)
-  @Length(8, 12)
   @Transform(({ value }) => value.replace(NON_NUMERIC_REGEX, ''), {
     toClassOnly: true,
   })
