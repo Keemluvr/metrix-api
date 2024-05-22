@@ -11,6 +11,7 @@ import { parseDateFromString } from 'src/common/helpers/date.helper';
 import { BCRYPT_SALT } from 'src/common/constants/auth';
 import bcrypt from 'bcryptjs';
 import { USER_GENDER } from 'src/modules/user/enums/user-gender.enum';
+import { USER_ZODIAC_SIGN } from 'src/modules/user/enums/user-zodiac-sign.enum';
 
 /** @type {import("sequelize-cli").Migration} */
 module.exports = {
@@ -30,13 +31,28 @@ module.exports = {
           masculino: USER_GENDER.MALE,
         };
 
+        const zodiacSign = {
+          áries: USER_ZODIAC_SIGN.ARIES,
+          touro: USER_ZODIAC_SIGN.TAURUS,
+          gêmeos: USER_ZODIAC_SIGN.GEMINI,
+          câncer: USER_ZODIAC_SIGN.CANCER,
+          leão: USER_ZODIAC_SIGN.LEO,
+          virgem: USER_ZODIAC_SIGN.VIRGO,
+          libra: USER_ZODIAC_SIGN.LIBRA,
+          escorpião: USER_ZODIAC_SIGN.SCORPIO,
+          sagitário: USER_ZODIAC_SIGN.SAGITTARIUS,
+          capricórnio: USER_ZODIAC_SIGN.CAPRICORN,
+          aquário: USER_ZODIAC_SIGN.AQUARIUS,
+          peixes: USER_ZODIAC_SIGN.PISCES,
+        };
+
         const newUser = {
           name: item.nome,
           cpf: removeNonNumericCharacters(item.cpf),
           rg: removeNonNumericCharacters(item.rg),
           birthdate: parseDateFromString(item.data_nasc).toISOString(),
           gender: gender[item.sexo.toLowerCase()],
-          zodiacSign: item.signo,
+          zodiacSign: zodiacSign[item.signo.toLowerCase()],
           motherName: item.mae,
           fatherName: item.pai,
           email: item.email,
