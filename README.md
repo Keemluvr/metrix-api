@@ -1,77 +1,104 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## Sobre o projeto
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este projeto é uma aplicação construída com NestJS.
+O front-end da aplicação fica no repositório [metrix-webapp](https://github.com/Keemluvr/metrix-webapp)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📝 Tabela de conteúdos
 
-## Description
+- [Tecnologias Utilizadas](#%EF%B8%8F-tecnologias-utilizadas)
+- [Como executar o projeto](#point_right-como-executar-o-projeto)
+- [Estrutura do Projeto](#mag_right-estrutura-do-projeto)
+- [Ajustes e/ou novas funcionalidades para o sistema](#-ajustes-eou-novas-funcionalidades-para-o-sistema)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## ⛏️ Tecnologias Utilizadas
 
-## Installation
+- **NestJS**: Framework para construção de aplicativos back-end em Node.js.
+- **TypeScript**: Linguagem de programação para tipagem estática de dados.
+- **Sequelize**: ORM (Object-Relational Mapping) para Node.js, utilizado para interagir com o banco de dados SQLite.
+- **class-validator**: Biblioteca para validação de dados em classes e objetos.
+- **bcrypt**: Biblioteca para hashing de senhas.
+- **JWT (JSON Web Tokens)**: Método para autenticação.
+- **SQLite**: Banco de dados SQL embutido.
 
-```bash
-$ npm install
+### Testes:
+
+- **Jest**: Framework de testes em JavaScript.
+
+### Ferramentas de Desenvolvimento:
+
+- **Prettier**: Ferramenta para formatação de código.
+- **ESLint**: Ferramenta para análise estática de código em JavaScript e TypeScript.
+
+## :point_right: Como executar o projeto
+
+1. Crie um arquivo com o nome `.env` na raiz do projeto com a seguinte configuração:
+
+   ```sh
+    NODE_ENV=development
+    DB_HOST=localhost
+    DB_PORT=5432
+    DB_USER=postgres
+    DB_PASS=postgres
+    DB_NAME=metrix
+    DB_DIALECT=postgres
+    PRIVATE_KEY=random_secret_key
+    TOKEN_EXPIRATION=48h
+   ```
+   
+2. Instale as dependências do projeto:
+
+   ```sh
+   npm install
+   ```
+
+3. Crie o banco localmente:
+   ```sh
+   npm run migrate
+   ```
+
+4. Execute as seeds para popular o banco:
+   ```sh
+   npm run seed
+   ```
+
+5. Execute a aplicação:
+   ```sh
+   npm run start
+   ```
+
+## :mag_right: Estrutura do Projeto
+
+A estrutura do projeto é organizada da seguinte forma:
+
+```sh
+|-- src/
+    |-- common/
+        |-- constants/
+        |-- guards/
+        |-- helpers/
+    |-- core/
+        |-- constants/
+        |-- database/
+    |-- modules/
+        |-- auth/
+        |-- user/
+            |-- dto/
+            |-- entities/
+            |-- enums/
 ```
 
-## Running the app
+### `common`
+- Contém módulos comuns utilizados em toda a aplicação, como constantes, guards e helpers.
 
-```bash
-# development
-$ npm run start
+### `core`
+- Responsável por configurar aspectos centrais da aplicação, como conexão com o banco de dados.
 
-# watch mode
-$ npm run start:dev
+### `modules`
+- Contém os módulos da aplicação, cada um representando uma área ou recurso, como autenticação e usuário. Cada módulo pode conter Data Transfer Objects (DTOs), entidades e enums relacionados.
 
-# production mode
-$ npm run start:prod
-```
+## 🔨 Ajustes e/ou novas funcionalidades para o sistema:
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
-
-npm install
-
-npm run migrate
+- [ ] (Melhoria) Separar o Address e o Physical para um novo módulo para poder ter rotas para editar somente eles
+- [ ] (Ajuste) Configurar o CORS
+- [ ] (Melhoria) Adiciona o Swagger para uma melhor documentação
+- [ ] (Melhoria) Melhorar o tratamento e retorno dos erros
