@@ -98,26 +98,29 @@ export class UserService {
   }
 
   @Transactional()
-  async update(
-    id: number,
-    updateUserDto: UpdateUserDto,
-  ): Promise<[number] | unknown> {
-    const user = await this.findOne(id);
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    try {
+      await this.validateUserExists(id);
+      await this.validateUniqueFieldsById(id, updateUserDto as User);
 
-    await this.validateUserExists(id);
-    await this.validateUniqueFieldsById(id, updateUserDto as User);
+      await this.addressRepository.upsert({
+        ...updateUserDto.address,
+        userId: id,
+      });
 
-    await this.addressRepository.update(updateUserDto.address, {
-      where: { id: user.address.id },
-    });
+      await this.physicalRepository.upsert({
+        ...updateUserDto.physical,
+        userId: id,
+      });
 
-    await this.physicalRepository.update(updateUserDto.physical, {
-      where: { id: user.physical.id },
-    });
+      await this.userRepository.update(updateUserDto as unknown as User, {
+        where: { id },
+      });
 
-    return this.userRepository.update(updateUserDto as unknown as User, {
-      where: { id },
-    });
+      return updateUserDto as User;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async remove(id: number): Promise<void> {
