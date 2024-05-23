@@ -7,7 +7,6 @@ import {
   IsOptional,
   ValidateNested,
   Length,
-  IsISO8601,
   IsStrongPassword,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
@@ -44,7 +43,6 @@ export class CreateUserDto {
   rg: string;
 
   @IsNotEmpty()
-  @IsISO8601()
   birthdate: string;
 
   @IsNotEmpty()

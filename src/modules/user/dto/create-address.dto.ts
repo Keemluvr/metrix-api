@@ -3,6 +3,7 @@ import {
   IsEnum,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   Matches,
   MaxLength,
@@ -12,6 +13,10 @@ import { CEP_REGEX, NON_NUMERIC_REGEX } from 'src/common/constants/regex';
 import { BR_STATES } from '../enums/address-state.enum';
 
 export class CreateAddressDTO {
+  @IsOptional()
+  @IsNumber()
+  id: number;
+
   @IsNotEmpty()
   @IsString()
   @Matches(CEP_REGEX)

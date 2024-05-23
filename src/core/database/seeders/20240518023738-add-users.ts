@@ -50,7 +50,7 @@ module.exports = {
           name: item.nome,
           cpf: removeNonNumericCharacters(item.cpf),
           rg: removeNonNumericCharacters(item.rg),
-          birthdate: parseDateFromString(item.data_nasc).toISOString(),
+          birthdate: parseDateFromString(item.data_nasc).toUTCString(),
           gender: gender[item.sexo.toLowerCase()],
           zodiacSign: zodiacSign[item.signo.toLowerCase()],
           motherName: item.mae,
@@ -93,8 +93,8 @@ module.exports = {
           'users',
           {
             ...convertToSnakeCase(user),
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
+            created_at: new Date().toUTCString(),
+            updated_at: new Date().toUTCString(),
           },
           {
             transaction,

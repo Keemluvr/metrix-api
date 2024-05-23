@@ -1,4 +1,5 @@
 import { QueryInterface } from 'sequelize';
+import { BR_STATES } from 'src/modules/user/enums/address-state.enum';
 
 /** @type {import("sequelize-cli").Migration} */
 module.exports = {
@@ -31,7 +32,7 @@ module.exports = {
         allowNull: false,
       },
       state: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM(...Object.values(BR_STATES)),
         allowNull: false,
       },
     });

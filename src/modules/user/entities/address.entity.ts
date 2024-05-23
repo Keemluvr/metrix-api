@@ -9,7 +9,8 @@ import {
   DataType,
   BelongsTo,
 } from 'sequelize-typescript';
-import { User } from './user.entity';
+import { User } from 'src/modules/user/entities/user.entity';
+import { BR_STATES } from '../enums/address-state.enum';
 
 @Table({
   tableName: 'addresses',
@@ -43,7 +44,7 @@ export class Address extends Model<Address> {
   city: string;
 
   @AllowNull(false)
-  @Column
+  @Column({ type: DataType.ENUM(...Object.values(BR_STATES)) })
   state: string;
 
   // Relations
