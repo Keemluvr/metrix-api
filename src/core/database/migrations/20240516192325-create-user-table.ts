@@ -18,25 +18,30 @@ module.exports = {
       },
       cpf: {
         type: Sequelize.STRING,
+        defaultValue: null,
         unique: true,
         allowNull: true,
       },
       rg: {
         type: Sequelize.STRING,
+        defaultValue: null,
         allowNull: true,
         unique: true,
       },
       birthdate: {
         type: Sequelize.DATE,
         allowNull: true,
+        defaultValue: null,
       },
       gender: {
         type: Sequelize.ENUM(...Object.values(USER_GENDER)),
         allowNull: true,
+        defaultValue: null,
       },
       zodiac_sign: {
         type: Sequelize.ENUM(...Object.values(USER_ZODIAC_SIGN)),
         allowNull: true,
+        defaultValue: null,
       },
       email: {
         type: Sequelize.STRING,
@@ -51,18 +56,22 @@ module.exports = {
       phone: {
         type: Sequelize.STRING,
         allowNull: true,
+        defaultValue: null,
       },
       cellphone: {
         type: Sequelize.STRING,
         allowNull: true,
+        defaultValue: null,
       },
       mother_name: {
         type: Sequelize.STRING,
         allowNull: true,
+        defaultValue: null,
       },
       father_name: {
         type: Sequelize.STRING,
         allowNull: true,
+        defaultValue: null,
       },
       created_at: {
         allowNull: false,

@@ -64,23 +64,28 @@ export class User extends Model<User> {
   @AllowNull(true)
   @Validate({ is: CPF_REGEX })
   @Unique
+  @Default(null)
   @Column
   cpf: string;
 
   @AllowNull(true)
   @Unique
+  @Default(null)
   @Column
   rg: string;
 
   @AllowNull(true)
+  @Default(null)
   @Column
   birthdate: string;
 
   @AllowNull(true)
+  @Default(null)
   @Column({ type: DataType.ENUM(...Object.values(USER_GENDER)) })
   gender: string;
 
   @AllowNull(true)
+  @Default(null)
   @Column({ type: DataType.ENUM(...Object.values(USER_ZODIAC_SIGN)) })
   zodiacSign: string;
 
@@ -95,20 +100,24 @@ export class User extends Model<User> {
   password!: string;
 
   @AllowNull(true)
+  @Default(null)
   @Column
   phone: string;
 
   @AllowNull(true)
+  @Default(null)
   @Column
   cellphone: string;
 
   @Default('')
   @AllowNull(true)
+  @Default(null)
   @Column
   motherName: string;
 
   @Default('')
   @AllowNull(true)
+  @Default(null)
   @Column
   fatherName: string;
 

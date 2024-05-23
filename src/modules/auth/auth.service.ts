@@ -27,19 +27,23 @@ export class AuthService {
   }
 
   async signup(signUpDTO: SignUpDTO) {
-    const alreadyExistsUser = await this.userService.getByEmail(
-      signUpDTO.email,
-    );
+    try {
+      const alreadyExistsUser = await this.userService.getByEmail(
+        signUpDTO.email,
+      );
 
-    if (alreadyExistsUser)
-      throw new ConflictException({
-        entity: 'account',
-        message: 'field-already-exist',
-      });
+      if (alreadyExistsUser)
+        throw new ConflictException({
+          entity: 'account',
+          message: 'field-already-exist',
+        });
 
-    const user = await this.userService.create(signUpDTO as User);
+      const user = await this.userService.createDefault(signUpDTO as User);
 
-    return this.generateToken(user);
+      return this.generateToken(user);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   private async generateToken(user: User) {

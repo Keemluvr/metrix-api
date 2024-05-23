@@ -10,14 +10,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { SignUpDTO } from '../auth/dto/sign-up.dto';
 import { Address } from './entities/address.entity';
 import { Physical } from './entities/physical.entity';
-import { Sequelize } from 'sequelize-typescript';
 import { Transactional } from 'sequelize-transactional-decorator';
 import { Op } from 'sequelize';
 
 @Injectable()
 export class UserService {
-  private sequelize: Sequelize;
-
   constructor(
     @InjectModel(User) private userRepository: typeof User,
     @InjectModel(Address) private addressRepository: typeof Address,
