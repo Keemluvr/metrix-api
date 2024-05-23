@@ -10,7 +10,7 @@ module.exports = {
         model: 'users',
         key: 'id',
       },
-      onDelete: 'SET NULL',
+      onDelete: 'CASCADE',
     });
   },
   down: async (queryInterface: QueryInterface): Promise<void> => {
