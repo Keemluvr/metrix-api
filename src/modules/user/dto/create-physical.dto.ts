@@ -17,4 +17,8 @@ export class CreatePhysicalDTO {
   @IsNotEmpty()
   @IsEnum(USER_BLOOD_TYPE)
   bloodType: string;
+
+  @IsOptional()
+  @IsNumber()
+  userId: number;
 }

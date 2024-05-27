@@ -47,4 +47,8 @@ export class CreateAddressDTO {
   @MaxLength(2)
   @IsEnum(BR_STATES)
   state: string;
+
+  @IsOptional()
+  @IsNumber()
+  userId: number;
 }
