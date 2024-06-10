@@ -498,5 +498,30 @@
     "peso": 89,
     "tipo_sanguineo": "O+",
     "cor": "roxo"
+  },
+  {
+    "nome": "Admin",
+    "idade": 24,
+    "cpf": "965.742.108-06",
+    "rg": "38.223.617-5",
+    "data_nasc": "16/02/1979",
+    "sexo": "Feminino",
+    "signo": "Sagitário",
+    "mae": "Nelsi Fernandes",
+    "pai": "Nicolas Fernando Oliver Dias",
+    "email": "admin@admin.com",
+    "senha": "admin@admin.com",
+    "cep": "59604-392",
+    "endereco": "Vila São José",
+    "numero": 134,
+    "bairro": "Lagoa do Mato",
+    "cidade": "Mossoró",
+    "estado": "RN",
+    "telefone_fixo": "(84) 3332-1950",
+    "celular": "(84) 99440-0175",
+    "altura": "1,72",
+    "peso": 89,
+    "tipo_sanguineo": "O+",
+    "cor": "roxo"
   }
 ]
