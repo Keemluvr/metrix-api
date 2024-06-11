@@ -9,9 +9,6 @@ export const databaseProviders = {
     const environment = config.get('NODE_ENV') || DEVELOPMENT;
     const database = databaseConfig[environment];
 
-    return {
-      ...database,
-      autoLoadModels: true,
-    };
+    return database;
   },
 } as SequelizeModuleAsyncOptions;
