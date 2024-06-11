@@ -1,6 +1,6 @@
 import { QueryInterface } from 'sequelize';
-import { USER_GENDER } from 'src/modules/user/enums/user-gender.enum';
-import { USER_ZODIAC_SIGN } from 'src/modules/user/enums/user-zodiac-sign.enum';
+import { USER_GENDER } from '@/modules/user/enums/user-gender.enum';
+import { USER_ZODIAC_SIGN } from '@/modules/user/enums/user-zodiac-sign.enum';
 
 /** @type {import("sequelize-cli").Migration} */
 module.exports = {

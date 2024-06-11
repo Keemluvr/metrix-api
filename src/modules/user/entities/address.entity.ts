@@ -9,7 +9,7 @@ import {
   DataType,
   BelongsTo,
 } from 'sequelize-typescript';
-import { User } from 'src/modules/user/entities/user.entity';
+import { User } from './user.entity';
 import { BR_STATES } from '../enums/address-state.enum';
 
 @Table({

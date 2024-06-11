@@ -9,7 +9,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { CEP_REGEX, NON_NUMERIC_REGEX } from 'src/common/constants/regex';
+import { CEP_REGEX, NON_NUMERIC_REGEX } from '@/common/constants/regex';
 import { BR_STATES } from '../enums/address-state.enum';
 
 export class CreateAddressDTO {

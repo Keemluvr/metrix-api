@@ -16,7 +16,7 @@ import {
   CPF_REGEX,
   NON_NUMERIC_REGEX,
   PHONE_REGEX,
-} from 'src/common/constants/regex';
+} from '@/common/constants/regex';
 import { CreateAddressDTO as Address } from './create-address.dto';
 import { CreatePhysicalDTO as Physical } from './create-physical.dto';
 

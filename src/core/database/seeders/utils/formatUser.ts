@@ -1,13 +1,13 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import { BCRYPT_SALT } from 'src/common/constants/auth';
-import { parseDateFromString } from 'src/common/helpers/date.helper';
-import { removeNonNumericCharacters } from 'src/common/helpers/string.helper';
-import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
-import { USER_GENDER } from 'src/modules/user/enums/user-gender.enum';
-import { USER_ZODIAC_SIGN } from 'src/modules/user/enums/user-zodiac-sign.enum';
+import { BCRYPT_SALT } from '@/common/constants/auth';
+import { parseDateFromString } from '@/common/helpers/date.helper';
+import { removeNonNumericCharacters } from '@/common/helpers/string.helper';
+import { CreateUserDto } from '@/modules/user/dto/create-user.dto';
+import { USER_GENDER } from '@/modules/user/enums/user-gender.enum';
+import { USER_ZODIAC_SIGN } from '@/modules/user/enums/user-zodiac-sign.enum';
 import bcrypt from 'bcryptjs';
-import { convertToSnakeCase } from 'src/common/helpers/object.helper';
+import { convertToSnakeCase } from '@/common/helpers/object.helper';
 
 const gender = {
   feminino: USER_GENDER.FEMALE,
