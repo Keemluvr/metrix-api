@@ -1,5 +1,5 @@
 import { QueryInterface } from 'sequelize';
-import { BR_STATES } from '@/modules/user/enums/address-state.enum';
+import { BR_STATES } from '../../../modules/user/enums/address-state.enum';
 
 /** @type {import("sequelize-cli").Migration} */
 module.exports = {

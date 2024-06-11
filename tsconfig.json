@@ -24,9 +24,6 @@
     "resolveJsonModule": true,
     "strict": true,
     "esModuleInterop": true,
-    "types": ["node", "jest"],
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "types": ["node", "jest"]
   }
 }

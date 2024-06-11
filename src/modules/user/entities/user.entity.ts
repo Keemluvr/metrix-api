@@ -22,16 +22,16 @@ import {
   CreatedAt,
   UpdatedAt,
 } from 'sequelize-typescript';
-import { CPF_REGEX } from '@/common/constants/regex';
+import { CPF_REGEX } from '../../../common/constants/regex';
 
 import * as bcrypt from 'bcryptjs';
 
-import { USER_ZODIAC_SIGN } from '@/modules/user/enums/user-zodiac-sign.enum';
+import { USER_ZODIAC_SIGN } from '../../../modules/user/enums/user-zodiac-sign.enum';
 import { USER_GENDER } from '../enums/user-gender.enum';
+import { BCRYPT_SALT } from '../../../common/constants/auth';
 
 import { Address } from './address.entity';
 import { Physical } from './physical.entity';
-import { BCRYPT_SALT } from '@/common/constants/auth';
 
 @DefaultScope(() => ({
   attributes: { exclude: ['password'] },
