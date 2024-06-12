@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - master
     paths-ignore:
       - '**.md'
   pull_request:
@@ -76,6 +76,7 @@ jobs:
           path: dist
       - name: Vercel Action
         uses: amondnet/vercel-action@v25
+        id: vercel-action
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-comment: false
