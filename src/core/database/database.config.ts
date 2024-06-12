@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import pg from 'pg';
 
 dotenv.config();
 
@@ -10,6 +11,7 @@ const configDB = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
+    dialectModule: pg,
     dialectOptions: {
       ssl: {
         require: true,
@@ -23,6 +25,7 @@ const configDB = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
+    dialectModule: pg,
     dialectOptions: {
       ssl: {
         require: true,
