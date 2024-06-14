@@ -6,19 +6,24 @@ export default async (app) => {
   const allowedOrigins = [
     'http://localhost',
     `http://localhost:${configService.get('PORT')}`,
+    'http://metrix-api.vercel.app',
     configService.get('CORS_ALLOWED_ORIGIN'),
   ];
+
+  const errorMessage = 'Origin not allowed by CORS';
 
   app.enableCors({
     credentials: true,
     origin: (origin: string, callback) => {
+      if (!origin) callback(new Error(errorMessage));
+
       const originIsWhitelisted = allowedOrigins.includes(origin);
       const originStartsOrEndsWithAllowed = allowedOrigins.some(
         (or) => origin.endsWith(or) || origin.startsWith(or),
       );
 
-      if (!origin || !originIsWhitelisted || !originStartsOrEndsWithAllowed) {
-        callback(new Error('Origin not allowed by CORS'));
+      if (!originIsWhitelisted || !originStartsOrEndsWithAllowed) {
+        callback(new Error(errorMessage));
       }
 
       callback(null, true);
