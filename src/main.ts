@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { initSequelizeCLS } from 'sequelize-transactional-decorator';
-import { ConfigService } from '@nestjs/config';
+import { ConfigService } from './config/config.service';
 
 initSequelizeCLS();
 
@@ -26,6 +26,6 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(configService.get<string>('PORT'));
+  await app.listen(configService.getServer<string>('port'));
 }
 bootstrap();

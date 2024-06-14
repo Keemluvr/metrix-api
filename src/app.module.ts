@@ -5,11 +5,6 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 
-import { ConfigModule } from '@nestjs/config';
-import { SequelizeModule } from '@nestjs/sequelize';
-import { SequelizeTransactionalModule } from 'sequelize-transactional-decorator';
-import { databaseProviders } from './core/database/database.providers';
-
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 
@@ -18,15 +13,11 @@ import { UserController } from './modules/user/user.controller';
 import { AuthService } from './modules/auth/auth.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { CorsMiddleware } from './core/middleware/cors.middleware';
+import { ConfigModule } from './config/config.module';
+import { DatabaseModule } from './core/database/database.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
-    SequelizeModule.forRootAsync(databaseProviders),
-    SequelizeTransactionalModule.register(),
-    AuthModule,
-    UserModule,
-  ],
+  imports: [ConfigModule, DatabaseModule, AuthModule, UserModule],
   controllers: [AppController, UserController],
   providers: [AppService, AuthService],
 })
