@@ -10,11 +10,11 @@ export default async (app) => {
     configService.get('CORS_ALLOWED_ORIGIN'),
   ];
 
-  const errorMessage = 'Origin not allowed by CORS';
-
   app.enableCors({
     origin: (origin: string, callback) => {
       console.warn('Origin: ', origin);
+      const errorMessage = `Origin ${origin} not allowed by CORS`;
+
       if (!origin) callback(new Error(errorMessage));
 
       const originIsWhitelisted = allowedOrigins.includes(origin);
