@@ -9,6 +9,13 @@ initSequelizeCLS();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.use(function (req, res, next) {
+    console.log(req.headers);
+    req.headers.origin = req.headers.origin || req.headers.host;
+    next();
+  });
+
   const configService = app.get(ConfigService);
 
   // ========================================

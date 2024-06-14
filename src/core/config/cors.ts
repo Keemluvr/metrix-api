@@ -10,12 +10,6 @@ export default async (app) => {
     configService.get('CORS_ALLOWED_ORIGIN'),
   ];
 
-  app.use(function (req, res, next) {
-    console.log(req.headers);
-    req.headers.origin = req.headers.origin || req.headers.host;
-    next();
-  });
-
   app.enableCors({
     origin: (origin: string, callback) => {
       console.warn('Origin: ', origin);
