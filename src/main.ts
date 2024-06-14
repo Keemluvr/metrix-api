@@ -3,18 +3,11 @@ import { AppModule } from './app.module';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { initSequelizeCLS } from 'sequelize-transactional-decorator';
 import { ConfigService } from '@nestjs/config';
-import setupCors from './core/config/cors';
 
 initSequelizeCLS();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
-  app.use(function (req, res, next) {
-    console.log(req.headers);
-    req.headers.origin = req.headers.origin || req.headers.host;
-    next();
-  });
 
   const configService = app.get(ConfigService);
 
@@ -32,8 +25,6 @@ async function bootstrap() {
       exceptionFactory: (errors) => new BadRequestException(errors),
     }),
   );
-
-  setupCors(app);
 
   await app.listen(configService.get<string>('PORT'));
 }

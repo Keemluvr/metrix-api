@@ -18,11 +18,7 @@ export default async (app) => {
       if (!origin) callback(new Error(errorMessage));
 
       const originIsWhitelisted = allowedOrigins.includes(origin);
-      const originStartsOrEndsWithAllowed = allowedOrigins.some(
-        (or) => origin.endsWith(or) || origin.startsWith(or),
-      );
-
-      if (!originIsWhitelisted || !originStartsOrEndsWithAllowed) {
+      if (!originIsWhitelisted) {
         callback(new Error(errorMessage));
       }
 
