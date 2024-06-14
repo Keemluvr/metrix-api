@@ -6,14 +6,13 @@ export default async (app) => {
   const allowedOrigins = [
     'http://localhost',
     `http://localhost:${configService.get('PORT')}`,
-    'http://metrix-api.vercel.app',
+    'https://metrix-api.vercel.app',
     configService.get('CORS_ALLOWED_ORIGIN'),
   ];
 
   const errorMessage = 'Origin not allowed by CORS';
 
   app.enableCors({
-    credentials: true,
     origin: (origin: string, callback) => {
       console.warn('Origin: ', origin);
       if (!origin) callback(new Error(errorMessage));
@@ -29,5 +28,9 @@ export default async (app) => {
 
       callback(null, true);
     },
+    methods: 'GET, HEAD, PUT, POST, DELETE, OPTIONS, PATCH',
+    credentials: true,
+    allowedHeaders:
+      'Origin, X-Requested-With, Content-Type, Accept, Authentication, Access-control-allow-credentials, Access-control-allow-headers, Access-control-allow-methods, Access-control-allow-origin, User-Agent, Referer, Accept-Encoding, Accept-Language, Access-Control-Request-Headers, Cache-Control, Pragma',
   });
 };
