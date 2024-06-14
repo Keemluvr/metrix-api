@@ -15,6 +15,7 @@ export default async (app) => {
   app.enableCors({
     credentials: true,
     origin: (origin: string, callback) => {
+      console.warn('Origin: ', origin);
       if (!origin) callback(new Error(errorMessage));
 
       const originIsWhitelisted = allowedOrigins.includes(origin);
