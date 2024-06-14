@@ -10,6 +10,12 @@ export default async (app) => {
     configService.get('CORS_ALLOWED_ORIGIN'),
   ];
 
+  app.use(function (req, res, next) {
+    console.log(req.headers);
+    req.headers.origin = req.headers.origin || req.headers.host;
+    next();
+  });
+
   app.enableCors({
     origin: (origin: string, callback) => {
       console.warn('Origin: ', origin);
@@ -31,6 +37,6 @@ export default async (app) => {
     methods: 'GET, HEAD, PUT, POST, DELETE, OPTIONS, PATCH',
     credentials: true,
     allowedHeaders:
-      'Origin, X-Requested-With, Content-Type, Accept, Authentication, Access-control-allow-credentials, Access-control-allow-headers, Access-control-allow-methods, Access-control-allow-origin, User-Agent, Referer, Accept-Encoding, Accept-Language, Access-Control-Request-Headers, Cache-Control, Pragma',
+      'Content-Type, Access-Control-Allow-Credentials, Authorization',
   });
 };
