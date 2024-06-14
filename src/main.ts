@@ -2,11 +2,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { initSequelizeCLS } from 'sequelize-transactional-decorator';
+import { ConfigService } from '@nestjs/config';
+import setupCors from './core/config/cors';
 
 initSequelizeCLS();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
 
   // ========================================
   // Validation
@@ -23,11 +26,8 @@ async function bootstrap() {
     }),
   );
 
-  // app.enableCors({
-  //   origin: ['http://localhost:3000'],
-  //   credentials: true,
-  // });
+  setupCors(app);
 
-  await app.listen(8080);
+  await app.listen(configService.get<string>('PORT'));
 }
 bootstrap();
