@@ -9,8 +9,8 @@ import {
   ForeignKey,
   BelongsTo,
 } from 'sequelize-typescript';
-import { User } from './user.entity';
 import { USER_BLOOD_TYPE } from '../enums/user-blood-type.enum';
+import User from './user.entity';
 
 @Table({
   tableName: 'physicals',
@@ -18,7 +18,7 @@ import { USER_BLOOD_TYPE } from '../enums/user-blood-type.enum';
   timestamps: false,
   underscored: true,
 })
-export class Physical extends Model<Physical> {
+export default class Physical extends Model<Physical> {
   @PrimaryKey
   @AutoIncrement
   @Column

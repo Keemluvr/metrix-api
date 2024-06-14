@@ -1,7 +1,14 @@
 import dotenv from 'dotenv';
+import * as path from 'path';
 import pg from 'pg';
 
 dotenv.config();
+
+const modelsPath = path.join(
+  path.dirname(__dirname),
+  '..',
+  'modules/**/entities/*.entity.js',
+);
 
 const configDB = {
   development: {
@@ -12,6 +19,7 @@ const configDB = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialectModule: pg,
+    models: [modelsPath],
     dialectOptions: {
       ssl: {
         require: true,
@@ -26,6 +34,7 @@ const configDB = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialectModule: pg,
+    models: [modelsPath],
     dialectOptions: {
       ssl: {
         require: true,

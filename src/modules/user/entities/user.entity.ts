@@ -30,8 +30,8 @@ import { USER_ZODIAC_SIGN } from '../../../modules/user/enums/user-zodiac-sign.e
 import { USER_GENDER } from '../enums/user-gender.enum';
 import { BCRYPT_SALT } from '../../../common/constants/auth';
 
-import { Address } from './address.entity';
-import { Physical } from './physical.entity';
+import Address from './address.entity';
+import Physical from './physical.entity';
 
 @DefaultScope(() => ({
   attributes: { exclude: ['password'] },
@@ -50,7 +50,7 @@ import { Physical } from './physical.entity';
   timestamps: true,
   underscored: true,
 })
-export class User extends Model<User> {
+export default class User extends Model<User> {
   @PrimaryKey
   @ForeignKey(() => Address)
   @AutoIncrement

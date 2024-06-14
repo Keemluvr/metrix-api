@@ -4,14 +4,14 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
 import { InjectModel } from '@nestjs/sequelize';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { SignUpDTO } from '../auth/dto/sign-up.dto';
-import { Address } from './entities/address.entity';
-import { Physical } from './entities/physical.entity';
 import { Transactional } from 'sequelize-transactional-decorator';
 import { Op } from 'sequelize';
+import User from './entities/user.entity';
+import Address from './entities/address.entity';
+import Physical from './entities/physical.entity';
 
 @Injectable()
 export class UserService {
@@ -32,6 +32,7 @@ export class UserService {
   }
 
   async getByEmail(email: string): Promise<User> {
+    console.log(this.userRepository);
     return this.userRepository
       .scope('withPassword')
       .findOne({ where: { email } });

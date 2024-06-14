@@ -9,15 +9,15 @@ import {
   DataType,
   BelongsTo,
 } from 'sequelize-typescript';
-import { User } from './user.entity';
 import { BR_STATES } from '../enums/address-state.enum';
+import User from './user.entity';
 
 @Table({
   tableName: 'addresses',
   name: { singular: 'address', plural: 'addresses' },
   timestamps: false,
 })
-export class Address extends Model<Address> {
+export default class Address extends Model<Address> {
   @PrimaryKey
   @AutoIncrement
   @Column
