@@ -12,9 +12,11 @@ import { UserModule } from './modules/user/user.module';
 import { UserController } from './modules/user/user.controller';
 import { AuthService } from './modules/auth/auth.service';
 import { AuthModule } from './modules/auth/auth.module';
-import { CorsMiddleware } from './core/middleware/cors.middleware';
 import { ConfigModule } from './config/config.module';
 import { DatabaseModule } from './core/database/database.module';
+
+import { CorsMiddleware } from './core/middleware/cors.middleware';
+import { HelmetMiddleware } from './core/middleware/helmet.middleware';
 
 @Module({
   imports: [ConfigModule, DatabaseModule, AuthModule, UserModule],
@@ -25,7 +27,7 @@ export class AppModule implements NestModule {
   constructor() {}
 
   configure(consumer: MiddlewareConsumer) {
-    const middlewares = [CorsMiddleware];
+    const middlewares = [CorsMiddleware, HelmetMiddleware];
 
     consumer
       .apply(...middlewares)

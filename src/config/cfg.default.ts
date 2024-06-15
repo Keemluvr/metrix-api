@@ -25,12 +25,13 @@ export default {
     },
   },
   server: {
-    siteName: 'Metrix',
+    id: process.env.VERCEL_ID,
+    siteName: 'metrix',
     allowOrigins: [
-      'http://localhost',
-      `http://localhost:${port}`,
-      'https://metrix-api.vercel.app',
-      process.env.CORS_ALLOWED_ORIGIN,
+      'localhost',
+      `localhost:${port}`,
+      'metrix-api.vercel.app',
+      'metrixapp.vercel.app',
     ],
     port,
     passSalt: 'u5o2law8xi',

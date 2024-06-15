@@ -18,8 +18,4 @@ export class ConfigService {
     this.db = new DBConfig(defaultConfig.db);
     this.server = new ServerConfig(defaultConfig.server);
   }
-
-  getServer<T>(key: string): T {
-    return this.server[key] as T;
-  }
 }
