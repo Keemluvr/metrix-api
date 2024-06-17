@@ -17,6 +17,7 @@ import { DatabaseModule } from './core/database/database.module';
 
 import { CorsMiddleware } from './core/middleware/cors.middleware';
 import { HelmetMiddleware } from './core/middleware/helmet.middleware';
+import { LoggerMiddleware } from './core/middleware/logger.middleware';
 
 @Module({
   imports: [ConfigModule, DatabaseModule, AuthModule, UserModule],
@@ -27,7 +28,7 @@ export class AppModule implements NestModule {
   constructor() {}
 
   configure(consumer: MiddlewareConsumer) {
-    const middlewares = [CorsMiddleware, HelmetMiddleware];
+    const middlewares = [CorsMiddleware, HelmetMiddleware, LoggerMiddleware];
 
     consumer
       .apply(...middlewares)
