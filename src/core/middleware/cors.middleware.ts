@@ -23,7 +23,7 @@ export class CorsMiddleware implements NestMiddleware {
 
     const startAndEndWithAllowedOrigin =
       origin.startsWith(`${siteName}-`) && origin.endsWith(`-${id}.vercel.app`);
-    console.log(siteName, `${id}.vercel.app`, startAndEndWithAllowedOrigin);
+    console.log(siteName, `${id}.vercel.app`, origin.startsWith(`${siteName}-`) , origin.endsWith(`-${id}.vercel.app`) startAndEndWithAllowedOrigin);
 
     if (!isAllowedOrigin && !startAndEndWithAllowedOrigin) {
       throw new UnauthorizedException({ message: 'Not allowed origin' });
