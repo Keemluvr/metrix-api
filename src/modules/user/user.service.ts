@@ -32,7 +32,6 @@ export class UserService {
   }
 
   async getByEmail(email: string): Promise<User> {
-    console.log(this.userRepository);
     return this.userRepository
       .scope('withPassword')
       .findOne({ where: { email } });
