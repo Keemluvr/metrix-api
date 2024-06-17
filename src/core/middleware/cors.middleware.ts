@@ -16,7 +16,7 @@ export class CorsMiddleware implements NestMiddleware {
     const origin = req.headers.origin || req.headers.host;
     const { allowOrigins, siteName, id } = this.configService.server;
     console.log('allowedOrigins', allowOrigins);
-    console.log('>', origin);
+    console.log('>', origin, req.headers);
 
     const isAllowedOrigin = allowOrigins.includes(origin);
     console.log(isAllowedOrigin);
