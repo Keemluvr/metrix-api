@@ -37,5 +37,7 @@ export default {
     passSalt: 'u5o2law8xi',
     tokenSecret: process.env.PRIVATE_KEY,
     tokenMaxAge: process.env.TOKEN_EXPIRATION,
+    rateLimitWindowMs: 15 * 60 * 1000, // 15 minutes
+    rateLimitMax: 1000, // limit each IP to rateLimitMax requests per windowMs
   },
 };

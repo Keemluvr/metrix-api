@@ -8,6 +8,8 @@ export class ServerConfig extends BaseConfig {
   readonly passSalt: string;
   readonly tokenSecret: string;
   readonly tokenMaxAge: number;
+  readonly rateLimitWindowMs: number;
+  readonly rateLimitMax: number;
 
   constructor(cfg) {
     super(cfg);
