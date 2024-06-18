@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { AppService } from '../../app.service';
 import { ConfigService } from '../../config/config.service';
 import rateLimit from 'express-rate-limit';
+import { Logger } from 'nestjs-pino';
 
 @Injectable()
 export class RateLimitMiddleware implements NestMiddleware {
@@ -9,12 +9,17 @@ export class RateLimitMiddleware implements NestMiddleware {
 
   constructor(
     private readonly configService: ConfigService,
-    private readonly logger: AppService,
+    private readonly logger: Logger,
   ) {
     this.rateLimit = rateLimit({
       windowMs: this.configService.server.rateLimitWindowMs,
       max: this.configService.server.rateLimitMax,
-      message: 'too-many-requests',
+
+      handler: (req, res) => {
+        const message = req.t('_error:tooManyRequest');
+        // this.logger.debug({ message });
+        res.status(429).json({ message });
+      },
     });
   }
 

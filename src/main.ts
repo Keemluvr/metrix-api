@@ -1,15 +1,20 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Logger, ValidationPipe } from '@nestjs/common';
 import { initSequelizeCLS } from 'sequelize-transactional-decorator';
 import { ConfigService } from './config/config.service';
+import { Logger as PinoLogger } from 'nestjs-pino';
 
 initSequelizeCLS();
 
 async function bootstrap() {
+  const logger = new Logger();
+
   const app = await NestFactory.create(AppModule);
 
   const configService = app.get(ConfigService);
+
+  app.useLogger(app.get(PinoLogger));
 
   // ========================================
   // Validation
@@ -27,5 +32,14 @@ async function bootstrap() {
   );
 
   await app.listen(configService.server.port);
+
+  logger.log(`==========================================================`);
+  logger.log(`Http Server running on ${await app.getUrl()}`, 'Application');
+  logger.log(`==========================================================`);
+  logger.log(
+    `Documentation: ${await app.getUrl()}/documentation`,
+    'Application',
+  );
+  logger.log(`==========================================================`);
 }
 bootstrap();
